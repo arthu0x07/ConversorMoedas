@@ -16,38 +16,56 @@ class Converter extends React.Component{
         }
 
         this.Request = this.Request.bind(this);
+        this.atualizarcotacao = this.atualizarcotacao.bind(this);
+
     }
 
     /* Função Responsável por fazer as requisições e atualizar as cotações. */
     Request(event) {
-        if(this.state.moedaANome == "BRL"){
-            let endpoint = `https://economia.awesomeapi.com.br/last/${this.state.moedaANome}-${this.state.moedaBNome}`;
+            let endpoint = `https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL`;
             request.open('GET', endpoint);
             request.send();
 
             request.onreadystatechange = () =>{
                 if(request.readyState == 4 && request.status == 200){
                     var data = JSON.parse(request.responseText);
-                    this.setState({moedaCotacaoAB: data.BRLUSD.high})
-                    this.setState({moedaBValor: this.state.moedaAValor * this.state.moedaCotacaoAB})
-                }
-            }
-        } else
-        
-        if(this.state.moedaANome == "USD"){
-            let endpoint = `https://economia.awesomeapi.com.br/last/${this.state.moedaANome}-${this.state.moedaBNome}`;
-            request.open('GET', endpoint);
-            request.send();
-
-            request.onreadystatechange = () =>{
-                if(request.readyState == 4 && request.status == 200){
-                    var data = JSON.parse(request.responseText);
-                    this.setState({moedaCotacaoAB: data.USDBRL.high})
-                    this.setState({moedaBValor: this.state.moedaAValor * this.state.moedaCotacaoAB})
-                }
+                    this.atualizarcotacao(data);
+                } 
             }
         }
 
+        atualizarcotacao(data, moedaprincipal = this.state.moedaANome, moedasecundaria = this.state.moedaBNome){
+            switch (moedaprincipal) {
+                case "USD":
+                    this.setState({moedaCotacaoAB: data.USDBRL.high})
+                    this.setState({moedaBValor: this.state.moedaAValor * this.state.moedaCotacaoAB})       
+                    break;
+                case "BTC":
+                    this.setState({moedaCotacaoAB: data.BTCBRL.high})
+                    this.setState({moedaBValor: this.state.moedaAValor * this.state.moedaCotacaoAB})
+                    break;
+                case "EUR":
+                    this.setState({moedaCotacaoAB: data.EURBRL.high})
+                    this.setState({moedaBValor: this.state.moedaAValor * this.state.moedaCotacaoAB})
+                    break;
+                
+                case "BRL":
+                    if(moedasecundaria == "USD"){
+                        this.setState({moedaCotacaoAB: data.USDBRL.high})
+                        this.setState({moedaBValor: this.state.moedaAValor / this.state.moedaCotacaoAB})    
+                        break;    
+                    } else 
+                    
+                    if(moedasecundaria == "BTC"){
+                        this.setState({moedaCotacaoAB: data.BTCBRL.high})
+                        this.setState({moedaBValor: this.state.moedaAValor / this.state.moedaCotacaoAB})
+                    }else
+                    
+                    if(moedasecundaria == "EUR"){
+                        this.setState({moedaCotacaoAB: data.EURBRL.high})
+                        this.setState({moedaBValor: this.state.moedaAValor / this.state.moedaCotacaoAB})
+                    }
+            }
     }
 
     render(){

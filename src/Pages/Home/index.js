@@ -10,8 +10,15 @@ class Home extends React.Component{
     render(){
         return(
             <>
-                <Converter moedaANome="BRL" moedaBNome="USD"/>
                 <Converter moedaANome="USD" moedaBNome="BRL"/>
+                <Converter moedaANome="BRL" moedaBNome="USD"/>
+                
+                <Converter moedaANome="EUR" moedaBNome="BRL"/>
+                <Converter moedaANome="BRL" moedaBNome="EUR"/>
+
+                <Converter moedaANome="BTC" moedaBNome="BRL"/>
+                <Converter moedaANome="BRL" moedaBNome="BTC"/>
+
             </>
         )
     }
