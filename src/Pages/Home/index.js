@@ -1,5 +1,7 @@
 import React from 'react';
 import Converter from '../../Components/Converter/Converter';
+import Header from '../../Components/Header';
+import * as Styles from './styles';
 
 class Home extends React.Component{
     constructor(props){
@@ -10,15 +12,24 @@ class Home extends React.Component{
     render(){
         return(
             <>
-                <Converter moedaANome="USD" moedaBNome="BRL"/>
-                <Converter moedaANome="BRL" moedaBNome="USD"/>
+                <Styles.Global />
+
+                <Header />
+
+                <Styles.ContainerParMoedas>
+                    <Converter moedaANome="BRL" moedaBNome="USD"/>
+                    <Converter moedaANome="USD" moedaBNome="BRL"/>
+                </Styles.ContainerParMoedas>
                 
-                <Converter moedaANome="EUR" moedaBNome="BRL"/>
-                <Converter moedaANome="BRL" moedaBNome="EUR"/>
+                <Styles.ContainerParMoedas>
+                    <Converter moedaANome="BRL" moedaBNome="EUR"/>
+                    <Converter moedaANome="EUR" moedaBNome="BRL"/>
+                </Styles.ContainerParMoedas>
 
-                <Converter moedaANome="BTC" moedaBNome="BRL"/>
-                <Converter moedaANome="BRL" moedaBNome="BTC"/>
-
+                <Styles.ContainerParMoedas>
+                    <Converter moedaANome="BRL" moedaBNome="BTC"/>
+                    <Converter moedaANome="BTC" moedaBNome="BRL"/>
+                </Styles.ContainerParMoedas>
             </>
         )
     }

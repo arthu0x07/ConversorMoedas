@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as Styles from './styles';
 const request = new XMLHttpRequest();
 
 var oi = oi;
@@ -70,18 +71,22 @@ class Converter extends React.Component{
 
     render(){
         return(
-            <>
-                {/* Pega a propriedade State Nome da moeda */}
-                <h1> {this.state.moedaANome} </h1>
+            <Styles.ContainerContainerConversor>
+                <Styles.ContainerConversor>
+                
+                <div>
+                    {/* Pega a propriedade State Nome da moeda */}
+                    <Styles.TitleConversor > {this.state.moedaANome} </Styles.TitleConversor>
+                    {/* Sempre que for alterada, chama uma função que altera o valor da moeda no state, pelo valor que está no input. Feito o Event do input */}
+                    <Styles.InputConversor type="text" placeholder="Valor" onChange={(event) => this.setState({moedaAValor: event.target.value})} />
+                    {/* Irá fazer o resto do Trabalho de Converter */}
+                    <Styles.ButtonConversor type="button" value="Converter" onClick={this.Request}>Converter</Styles.ButtonConversor>
+                </div>
 
-                {/* Sempre que for alterada, chama uma função que altera o valor da moeda no state, pelo valor que está no input. Feito o Event do input */}
-                <input type="text" placeholder="Valor" onChange={(event) => this.setState({moedaAValor: event.target.value})} />
-
-                {/* Irá fazer o resto do Trabalho de Converter */}
-                <input type="button" value="Converter" onClick={this.Request}/>
-
-                <h2>Valor convertido em {this.state.moedaBNome}: {this.state.moedaBValor}</h2>
-            </>
+                    <Styles.TitleConversor2>Valor convertido em {this.state.moedaBNome}: {this.state.moedaBValor}</Styles.TitleConversor2>
+                
+                </Styles.ContainerConversor>
+            </Styles.ContainerContainerConversor>
         )
     }
 }
