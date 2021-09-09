@@ -16,4 +16,6 @@ class App extends React.Component{
     }
 }
 
+{/* Irá retornar as páginas que serão renderizadas pelo index. Assim, podemos fazer uma lógica para apresentar diversas páginas utilizando este arquivo "App.js" */}
+
 export default App;
